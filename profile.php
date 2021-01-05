@@ -972,15 +972,10 @@ $rowio = mysqli_fetch_array($resultio);
               <br>
               <div class="row">
                 <div class="col-sm">
-                  <a href="logout.php" class="btn btn-danger btn-sm"> logout </a>
+                  <a href="logout.php" class="btn btn-outline-danger btn-sm"> logout </a>
                 </div>
-
                 <div class="col-sm">
-                  One of three columns
-                </div>
-
-                <div class="col-sm">
-                  <a href="https://app.microtronic.biz/getlocal.php" class="btn btn-success btn-sm"> CheckIn </a>   
+                  <a href="https://app.microtronic.biz/getlocal.php" class="btn btn-outline-info btn-sm"> CheckIn </a>   
                 </div>             
               </div>
             </div>
