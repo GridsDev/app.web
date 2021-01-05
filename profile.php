@@ -970,7 +970,11 @@ $rowio = mysqli_fetch_array($resultio);
               ตำแหน่ง : <?php echo $rowm['m_position'];?>
               </b>
               <br>
+              <div class="row">
               <a href="logout.php" class="btn btn-danger btn-sm"> logout </a>
+              
+              <a href="logout.php" class="btn btn-danger btn-sm"> logout </a>              
+              </div>
             </div>
 
             <div class="col col-sm-9">

@@ -1023,7 +1023,7 @@
     <!-- DH.Workflow dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- Ccript Google map -->
-    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
     <!-- Script Geolocation -->
     <script>
       function showPosition() {
