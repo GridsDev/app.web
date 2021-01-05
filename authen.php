@@ -4,9 +4,10 @@ session_start();
                   include("condb.php");
                   $m_username = mysqli_real_escape_string($condb,$_POST['m_username']);
                   $m_password = mysqli_real_escape_string($condb,sha1($_POST['m_password']));
+                  $passwordenc = md5($password);
 
                   $sql="SELECT * FROM tbl_emp 
-                  WHERE  m_username='".$m_username."'  AND  m_password='".$m_password."' ";
+                  WHERE  m_username='".$m_username."'  AND  m_password='".$passwordenc."' ";
 
                   $result = mysqli_query($condb,$sql);
 				

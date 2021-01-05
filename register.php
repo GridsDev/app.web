@@ -22,7 +22,7 @@
 
             $query = "INSERT INTO tbl_emp (m_username, m_password, m_firstname, m_lastname, m_email, m_level)
             
-                        VALUE ('$username', '$passwordenc', ' $firstname', '$lastname', '$email', 'm')";
+                        VALUE ('$username', '$passwordenc', ' $firstname', '$lastname', '$email', 'staff')";
             
             $result = mysqli_query($condb, $query);
 
