@@ -1,26 +1,3 @@
-<?php
-session_start();
-// echo '<pre>';
-        // print_r($_SESSION);
-// echo '</pre>';
-include('condb.php');
-$m_id = $_SESSION['m_id'];
-$m_level = $_SESSION['m_level'];
-if($m_level!='staff'){
-Header("Location: logout.php");
-}
-//query member login
-$queryemp = "SELECT * FROM tbl_emp WHERE m_id=$m_id";
-$resultm = mysqli_query($condb, $queryemp) or die ("Error in query: $queryemp " . mysqli_error());
-$rowm = mysqli_fetch_array($resultm);
-//เวลาปัจจุบัน
-$timenow = date('H:i:s');
-$datenow = date('Y-m-d');
-//เวลาที่บันทึก
-$queryworkio = "SELECT MAX(workdate) as lastdate, workin, workout FROM tbl_work_io WHERE m_id=$m_id AND workdate='$datenow' ";
-$resultio = mysqli_query($condb, $queryworkio) or die ("Error in query: $queryworkio " . mysqli_error());
-$rowio = mysqli_fetch_array($resultio);
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -951,112 +928,44 @@ $rowio = mysqli_fetch_array($resultio);
         <div class="container">
           <div class="row">
             <div class="col col-sm-12">
-              <h3  class="jumbotron" align="center">USER PROFILE</h3>
+              <h3  class="jumbotron" align="center">DH Check In Location - bete</h3>
             </div>
           </div>
         </div>
         <!-- /.content-header -->
 
         <!-- Main content -->
-        
-        <div class="container">
-          <div class="row">
-            <div class="col col-sm-3">
-              <img src="img/<?php echo $rowm['m_img'];?>" width='70%'>
-              <br>
-              <b>
-              <?php echo $rowm['m_firstname'].$rowm['m_name']. ' '.$rowm['m_lastname'];?>
-              <br>
-              ตำแหน่ง : <?php echo $rowm['m_position'];?>
-              </b>
-              <br>
-              <div class="row">
-                <div class="col-sm">
-                  <a href="logout.php" class="btn btn-danger btn-sm"> logout </a>
+        <section class="content">
+          <!-- Horizontal Form -->
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col col-sm-4">                
+
+                <div>
+                  <button type="button" class="btn btn-primary" onclick="showPosition();">CHECK IN</button>
                 </div>
 
-                <div class="col-sm">
-                  One of three columns
-                </div>
+                <p><strong>Note:</strong> The geolocation property is not supported in IE8 and earlier versions.</p> 
 
-                <div class="col-sm">
-                  <a href="https://app.microtronic.biz/getlocal.php" class="btn btn-success btn-sm"> CheckIn </a>   
-                </div>             
+                <p></p>
+                <!-- onClick.Action embedded in <div> -->
+                <div id="embedMap" style="width: 360px; height: 300px;">
+                <!-- Google map will be embedded here -->
+                </div>              
+                
               </div>
             </div>
-
-            <div class="col col-sm-9">
-              <h3> ลงเวลาเข้า-ออกงาน <?php echo date('d-m-Y');?></h3>
-              <form action="save.php"  method="post" class="form-horizontal">
-              <div class="form-group row">
-                <div class="col col-sm-2">
-                  <label for="m_id">รหัสพนักงาน</label>
-                  <input type="text" class="form-control"   name="m_id"   placeholder="รหัสพนักงาน"   value="<?php echo $rowm['m_id'];?>"  readonly>
-                </div>
-
-                <div class="col col-sm-3">
-                  <label for="m_id">เวลาเข้างาน</label>
-                  <?php if(isset($rowio['workin'])){ ?>
-                  <input type="text" class="form-control"   name="workin"   value="<?php echo $rowio['workin'];?>"  disabled>
-                  <?php }else{ ?>
-                  <input type="text" class="form-control"   name="workin"   value="<?php echo date('H:i:s');?>"  readonly>
-                  <?php  } ?>
-                </div>
-
-                <div class="col col-sm-3">
-                  <label for="m_id">เวลาออกงาน</label>
-                    <?php
-                    if($timenow > '17:30:00'){
-                      if(isset($rowio['workout'])){ ?>
-                      <input type="text" class="form-control"   name="workout"  value="<?php echo $rowio['workout'];?>"  disabled>
-                      <?php }else{ ?>
-                      <input type="text" class="form-control"   name="workout"  value="<?php echo date('H:i:s');?>"  readonly>
-                      <?php
-                      } //if(isset($rowio['workout'])){
-                    }else{  //if($timenow > '11:00:00'){
-                    echo '<br><font color="red"> หลัง 17.30 น. </font>';
-                    } ?>
-                </div>
-
-                <div class="col col-sm-1">
-                  <label>-</label>
-                  <button type="submit" class="btn btn-primary">บันทึก</button>
-                </div>
-              </div>
-              </form>
-              <h3>List</h3>
-              <?php
-              $querylist = "SELECT * FROM tbl_work_io WHERE m_id = $m_id ORDER BY workdate DESC";
-              $resultlist = mysqli_query($condb, $querylist)  or die("Error:" . mysqli_error($querylist));
-              echo "
-              <table class='table table-bordered table-striped'>
-              <thead>
-                <tr class='table-danger'>
-                  <td>date</td>
-                  <td>work-in</td>
-                  <td>work-out</td>
-                </tr>
-              </thead>
-              ";
-
-              foreach ($resultlist as $value) {
-              echo "<tr>";
-                echo "<td>" .$value["workdate"] .  "</td> ";
-                echo "<td>" .$value["workin"] .  "</td> ";
-                echo "<td>" .$value["workout"] .  "</td> ";
-              echo "</tr>";
-              }
-            echo '</table>';
-            ?>
-            </div>
           </div>
-        </div>
 
-        <div class="container-fluid">
-          <div class="row">
+          <div class="container-fluid">
+            <div class="row">              
+                <div>
+                </div>                     
+            </div>            
           </div>
-        </div>
           <!-- /.card -->
+        </section>
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
@@ -1113,37 +1022,47 @@ $rowio = mysqli_fetch_array($resultio);
     <script src="dist/js/demo.js"></script>
     <!-- DH.Workflow dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js"></script>
-
+    <!-- Ccript Google map -->
+    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <!-- Script Geolocation -->
     <script>
-      var x = document.getElementById("demo");
-      
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else { 
-          x.innerHTML = "Geolocation is not supported by this browser.";
+      function showPosition() {
+      if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showMap, showError);
+        } else {
+          alert("Sorry, your browser does not support HTML5 geolocation.");
         }
-      }
-      
-      function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + 
-        "<br>Longitude: " + position.coords.longitude;
-      }
+      } 
+      // Define callback function for successful attempt
+      function showMap(position) {
+      // Get location data
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
 
+        var latlong = new google.maps.LatLng(lat, long);
+      
+        var myOptions = {
+          center: latlong,
+          zoom: 16,
+          mapTypeControl: true,
+          navigationControlOptions: {
+              style:google.maps.NavigationControlStyle.SMALL
+          }
+        } 
+      
+        var map = new google.maps.Map(document.getElementById("embedMap"), myOptions);
+        var marker = new google.maps.Marker({ position:latlong, map:map, title:"You are here!" });
+      } 
+      // Define callback function for failed attempt
       function showError(error) {
-        switch(error.code) {
-          case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-          case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-          case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-          case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
+        if(error.code == 1) {
+          result.innerHTML = "You've decided not to share your position, but it's OK. We won't ask you again.";
+        } else if(error.code == 2) {
+          result.innerHTML = "The network is down or the positioning service can't be reached.";
+        } else if(error.code == 3) {
+          result.innerHTML = "The attempt timed out before it could get the location data.";
+        } else {
+          result.innerHTML = "Geolocation failed due to unknown error.";
         }
       }
     </script>
