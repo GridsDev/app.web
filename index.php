@@ -277,7 +277,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./index.php" class="nav-link">
+                    <a href="./register.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Dashboard v3</p>
                     </a>
