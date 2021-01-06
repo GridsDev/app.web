@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DH.Workflow | Dashboard</title>>
+    <title>DH.Workflow | Dashboard</title>
 
     <script type="text/javascript">
       var currenttime = '<?php echo date('F j, Y H:i:s'); ?>';
@@ -993,13 +993,13 @@
                 <p></p>
 
                 <div class="text-center">
-                  <h5 class="heading text-info" >                  
+                  <h5 class="heading text-info">                  
                     <div id="clock">กำลังโหลด...</div>                                
                   </h5>
                 </div>  
 
                 <!-- onClick.Action embedded in <div> -->
-                <div id="embedMap" style="width: 360px; height: 300px;">
+                <div id="embedMap" style="width: 320px; height: 280px;">
                 <!-- Google map will be embedded here -->
                 </div>
                              
