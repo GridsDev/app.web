@@ -950,7 +950,7 @@
 
                 <p></p>
 
-                <div>
+                <div class="center">
                   <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:180px;height:60px;"src="https://www.clocklink.com/html5embed.php?clock=004&timezone=GMT0700&color=green&size=180&Title=&Message=&Target=&From=2021,1,1,0,0,0&Color=green"></iframe>                
                 </div>
                 <!-- onClick.Action embedded in <div> -->
