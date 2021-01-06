@@ -999,7 +999,7 @@
                 </div>  
 
                 <!-- onClick.Action embedded in <div> -->
-                <div id="embedMap" style="width: 330px; height: 280px;">
+                <div id="embedMap" style="width: 340px; height: 280px;">
                 <!-- Google map will be embedded here -->
                 </div>
                              
