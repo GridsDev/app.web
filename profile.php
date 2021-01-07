@@ -965,7 +965,7 @@ $rowio = mysqli_fetch_array($resultio);
               <img src="img/<?php echo $rowm['m_img'];?>" width='70%'>
               <br>
               <b>
-              <?php echo $rowm['m_firstname'].$rowm['m_name']. ' '.$rowm['m_lastname'];?>
+              <?php echo $rowm['m_firstname']. $rowm['m_name']. ' '. $rowm['m_lastname'];?>
               <br>
               ตำแหน่ง : <?php echo $rowm['m_position'];?>
               </b>
