@@ -1,45 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DH.Workflow | Dashboard</title>
-
-    <script type="text/javascript">
-      var currenttime = '<?php echo date('F j, Y H:i:s'); ?>';
-      var d=new Date();
-
-      function displaytime()
-      {
-        d.setSeconds(d.getSeconds()+1);
-        var s=d.getSeconds();
-        var m=d.getMinutes();
-        var h=d.getHours();
-        var day=d.getDay();
-        var date=d.getDate();
-        var month=d.getMonth();
-        var year=d.getFullYear();
-        var days=new Array("อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์");
-        var months=new Array('มกราคา','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');
-        var date;
-        var time;
-        if (s<10) {s="0" + s}
-        if (m<10) {m="0" + m}
-        //if (h>12) {h-=12;am_pm = "pm"}
-        //else {am_pm="am"}
-        if (h<10) {h="0" + h}
-        date = "วัน" + days[day] + " ที่ " + date + " " + months[month] + " " + year;
-        time = "เวลา " + h + ":" + m + ":" + s;
-        document.getElementById("clock").innerHTML = date + time;
-        setTimeout(displaytime,1000);
-      }
-
-      window.onload = function()
-      {
-        displaytime();
-      }
-    </script>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -296,57 +260,97 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <div class="container">
-          <div class="row">
-            <div class="col col-sm-12">
-              <h3  class="jumbotron" align="center">DH Check In Location - beta</h3>
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+              </div>
+              <!-- /.col -->
             </div>
+            <!-- /.row -->
           </div>
-
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Note:</strong>The geolocation property is not supported in IE8 and earlier versions.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
+          <!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
           <!-- Horizontal Form -->
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-4"></div>
-              <div class="col col-sm-4">                
-
-                <div>
-                  <button type="button" class="btn btn-primary" onclick="showPosition();">CHECK IN</button>
-                </div>
-
-                <p></p>
-
-                <div class="text-center">
-                  <h5 class="heading text-info">                  
-                    <div id="clock">กำลังโหลด...</div>                                
-                  </h5>
-                </div>  
-
-                <!-- onClick.Action embedded in <div> -->
-                <div id="embedMap" style="width: 325px; height: 280px;">
-                <!-- Google map will be embedded here -->
-                </div>
-                             
-              </div>
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">CHECK IN FORM</h3>
             </div>
-          </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+              <div class="card-body">
 
-          <div class="container-fluid">
-            <div class="row">              
-                <div>
-                </div>                     
-            </div>            
+                <div class="form-group row">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"
+                    >Email</label
+                  >
+                  <div class="col-sm-10">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="inputEmail3"
+                      placeholder="Email"
+                    />
+                  </div>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button class="btn btn-info" onclick="getLocation()">CHECK IN</button>
+                <p id="demo"></p>
+                <script>
+                  var x = document.getElementById("demo");
+                  
+                  function getLocation() {
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(showPosition);
+                    } else { 
+                      x.innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                  }
+                  
+                  function showPosition(position) {
+                    x.innerHTML = "Latitude: " + position.coords.latitude + 
+                    "<br>Longitude: " + position.coords.longitude;
+                  }
+            
+                  function showError(error) {
+                    switch(error.code) {
+                      case error.PERMISSION_DENIED:
+                        x.innerHTML = "User denied the request for Geolocation."
+                        break;
+                      case error.POSITION_UNAVAILABLE:
+                        x.innerHTML = "Location information is unavailable."
+                        break;
+                      case error.TIMEOUT:
+                        x.innerHTML = "The request to get user location timed out."
+                        break;
+                      case error.UNKNOWN_ERROR:
+                        x.innerHTML = "An unknown error occurred."
+                        break;
+                    }
+                  }
+                </script>
+
+              </div>
+
+
+              <!-- /.card-footer -->
+            </form>
           </div>
           <!-- /.card -->
         </section>
@@ -355,7 +359,7 @@
       <!-- /.content-wrapper -->
       <footer class="main-footer">
         <strong
-          >Copyright &copy; 2020-2021
+          >Copyright &copy; 2014-2020
           <a href="https://app.microtronic.biz">DOMNICK WORKFLOW BETA</a>.</strong
         >
         All rights reserved.
@@ -406,50 +410,39 @@
     <script src="dist/js/demo.js"></script>
     <!-- DH.Workflow dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js"></script>
-    <!-- Ccript Google map -->
-    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
-    <!-- Script Geolocation -->
-    <script>
-      function showPosition() {
-      if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showMap, showError);
-        } else {
-          alert("Sorry, your browser does not support HTML5 geolocation.");
-        }
-      } 
-      // Define callback function for successful attempt
-      function showMap(position) {
-      // Get location data
-        lat = position.coords.latitude;
-        long = position.coords.longitude;
 
-        var latlong = new google.maps.LatLng(lat, long);
+    <script>
+      var x = document.getElementById("demo");
       
-        var myOptions = {
-          center: latlong,
-          zoom: 16,
-          mapTypeControl: true,
-          navigationControlOptions: {
-              style:google.maps.NavigationControlStyle.SMALL
-          }
-        } 
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
       
-        var map = new google.maps.Map(document.getElementById("embedMap"), myOptions);
-        var marker = new google.maps.Marker({ position:latlong, map:map, title:"You are here!" });
-      } 
-      // Define callback function for failed attempt
+      function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude;
+      }
+
       function showError(error) {
-        if(error.code == 1) {
-          result.innerHTML = "You've decided not to share your position, but it's OK. We won't ask you again.";
-        } else if(error.code == 2) {
-          result.innerHTML = "The network is down or the positioning service can't be reached.";
-        } else if(error.code == 3) {
-          result.innerHTML = "The attempt timed out before it could get the location data.";
-        } else {
-          result.innerHTML = "Geolocation failed due to unknown error.";
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+          case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+          case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+          case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
         }
       }
     </script>
   </body>
 </html>
-
