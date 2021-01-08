@@ -1,26 +1,29 @@
 <?php
-session_start();
-// echo '<pre>';
-        // print_r($_SESSION);
-// echo '</pre>';
-include('condb.php');
-$m_id = $_SESSION['m_id'];
-$m_level = $_SESSION['m_level'];
-if($m_level!='staff'){
-Header("Location: logout.php");
-}
-//query member login
-$queryemp = "SELECT * FROM tbl_emp WHERE m_id=$m_id";
-$resultm = mysqli_query($condb, $queryemp) or die ("Error in query: $queryemp " . mysqli_error());
-$rowm = mysqli_fetch_array($resultm);
-//เวลาปัจจุบัน
-$timenow = date('H:i:s');
-$datenow = date('Y-m-d');
-//เวลาที่บันทึก
-$queryworkio = "SELECT MAX(workdate) as lastdate, workin, workout FROM tbl_work_io WHERE m_id=$m_id AND workdate='$datenow' ";
-$resultio = mysqli_query($condb, $queryworkio) or die ("Error in query: $queryworkio " . mysqli_error());
-$rowio = mysqli_fetch_array($resultio);
+  session_start();
+  // echo '<pre>';
+          // print_r($_SESSION);
+  // echo '</pre>';
+
+  include('condb.php');
+  $m_id = $_SESSION['m_id'];
+  $m_level = $_SESSION['m_level'];
+  if($m_level!='admin'){
+  Header("Location: logout.php");
+  }
+
+  //query member login
+  $queryemp = "SELECT * FROM tbl_emp WHERE m_id=$m_id";
+  $resultm = mysqli_query($condb, $queryemp) or die ("Error in query: $queryemp " . mysqli_error());
+  $rowm = mysqli_fetch_array($resultm);
+  //เวลาปัจจุบัน
+  $timenow = date('H:i:s');
+  $datenow = date('Y-m-d');
+  //เวลาที่บันทึก
+  $queryworkio = "SELECT MAX(workdate) as lastdate, workin, workout FROM tbl_work_io WHERE m_id=$m_id AND workdate='$datenow' ";
+  $resultio = mysqli_query($condb, $queryworkio) or die ("Error in query: $queryworkio " . mysqli_error());
+  $rowio = mysqli_fetch_array($resultio);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,41 +32,27 @@ $rowio = mysqli_fetch_array($resultio);
     <title>DH.Workflow | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"/>
     <!-- Ionicons -->
-    <link
-      rel="stylesheet"
-      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
-    />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
     <!-- Tempusdominus Bootstrap 4 -->
-    <link
-      rel="stylesheet"
-      href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
-    />
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"/>
     <!-- iCheck -->
-    <link
-      rel="stylesheet"
-      href="plugins/icheck-bootstrap/icheck-bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css"/>
     <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css" />
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"/>
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="dist/css/adminlte.min.css"/>
     <!-- overlayScrollbars -->
-    <link
-      rel="stylesheet"
-      href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"
-    />
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"/>
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"/>
     <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css" />
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css"/>
   </head>
+
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
       <!-- Navbar -->
@@ -226,12 +215,7 @@ $rowio = mysqli_fetch_array($resultio);
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index.php" class="brand-link">
-          <img
-            src="dist/img/AdminLTELogo.png"
-            alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3"
-            style="opacity: 0.8"
-          />
+          <img src="dist/img/domnickLogo.png" alt="domnick Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8"/>
           <span class="brand-text font-weight-light">DH.Workflow</span>
         </a>
 
@@ -240,12 +224,9 @@ $rowio = mysqli_fetch_array($resultio);
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img
-                src="dist/img/user2-160x160.jpg"
-                class="img-circle elevation-2"
-                alt="User Image"
-              />
+              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>
             </div>
+
             <div class="info">
               <a href="#" class="d-block"><?php echo $rowm['m_firstname']. $rowm['m_name']. ' '. $rowm['m_lastname'];?></a>
             </div>
@@ -254,12 +235,7 @@ $rowio = mysqli_fetch_array($resultio);
           <!-- SidebarSearch Form -->
           <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
-              <input
-                class="form-control form-control-sidebar"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
+              <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search"/>
               <div class="input-group-append">
                 <button class="btn btn-sidebar">
                   <i class="fas fa-search fa-fw"></i>
@@ -270,15 +246,13 @@ $rowio = mysqli_fetch_array($resultio);
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
-            <ul
-              class="nav nav-pills nav-sidebar flex-column"
-              data-widget="treeview"
-              role="menu"
-              data-accordion="false"
-            >
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+              <!-- Group Menu #1 -->
               <li class="nav-item menu-open">
+                <!-- Header Menu #1 -->
                 <a href="#" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
@@ -286,45 +260,57 @@ $rowio = mysqli_fetch_array($resultio);
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+
+                <!-- Menu #1 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="./index.php" class="nav-link active">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Dashboard v1</p>
+                      <p>MENU# 1</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="./index.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Dashboard v2</p>
+                      <p>MENU# 2</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="./index.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Dashboard v3</p>
+                      <p>MENU# 3</p>
                     </a>
                   </li>
                 </ul>
               </li>
+
+              <!-- Group Menu #2 -->
               <li class="nav-item">
+                <!-- Header Menu #1 -->
                 <a href="pages/widgets.html" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Widgets
+                    Group Menu #2
                     <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
               </li>
+
+              <!-- Group Menu #3 -->
               <li class="nav-item">
+                <!-- Header Menu #3 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
-                    Layout Options
+                    Group Menu #3
                     <i class="fas fa-angle-left right"></i>
                     <span class="badge badge-info right">6</span>
                   </p>
                 </a>
+
+                <!-- Menu #3 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="pages/layout/top-nav.html" class="nav-link">
@@ -332,67 +318,67 @@ $rowio = mysqli_fetch_array($resultio);
                       <p>Top Navigation</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
-                    <a
-                      href="pages/layout/top-nav-sidebar.html"
-                      class="nav-link"
-                    >
+                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Top Navigation + Sidebar</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/layout/boxed.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Boxed</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/layout/fixed-sidebar.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Fixed Sidebar</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
-                    <a
-                      href="pages/layout/fixed-sidebar-custom.html"
-                      class="nav-link"
-                    >
+                    <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Fixed Sidebar <small>+ Custom Area</small></p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/layout/fixed-topnav.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Fixed Navbar</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/layout/fixed-footer.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Fixed Footer</p>
                     </a>
                   </li>
+                
                   <li class="nav-item">
-                    <a
-                      href="pages/layout/collapsed-sidebar.html"
-                      class="nav-link"
-                    >
+                    <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Collapsed Sidebar</p>
                     </a>
                   </li>
-                </ul>
+                </ul>                
               </li>
+
+              <!-- Group Menu #4 -->
               <li class="nav-item">
+                <!-- Header Menu #4 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    Charts
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
+                  <p>Charts<i class="right fas fa-angle-left"></i></p>
                 </a>
+
+                <!-- Menu #4 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="pages/charts/chartjs.html" class="nav-link">
@@ -400,18 +386,21 @@ $rowio = mysqli_fetch_array($resultio);
                       <p>ChartJS</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/charts/flot.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Flot</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/charts/inline.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Inline</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/charts/uplot.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -420,14 +409,16 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+
+              <!-- Group Menu #5 -->
               <li class="nav-item">
+                <!-- Header Menu #5 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tree"></i>
-                  <p>
-                    UI Elements
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>UI Elements<i class="fas fa-angle-left right"></i></p>
                 </a>
+
+                <!-- Menu #5 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="pages/UI/general.html" class="nav-link">
@@ -435,42 +426,49 @@ $rowio = mysqli_fetch_array($resultio);
                       <p>General</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/icons.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Icons</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/buttons.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Buttons</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/sliders.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Sliders</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/modals.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Modals & Alerts</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/navbar.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Navbar & Tabs</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/timeline.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Timeline</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/UI/ribbons.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -479,14 +477,16 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+
+              <!-- Group Menu #6 -->
               <li class="nav-item">
+                <!-- Header Menu #6 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-edit"></i>
-                  <p>
-                    Forms
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>Forms<i class="fas fa-angle-left right"></i></p>
                 </a>
+
+                <!-- Menu #6 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="pages/forms/general.html" class="nav-link">
@@ -514,14 +514,16 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+
+              <!-- Group Menu #7 -->
               <li class="nav-item">
+                <!-- Header Menu #7 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-table"></i>
-                  <p>
-                    Tables
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>Tables<i class="fas fa-angle-left right"></i></p>
                 </a>
+
+                <!-- Menu #7 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="pages/tables/simple.html" class="nav-link">
@@ -529,12 +531,14 @@ $rowio = mysqli_fetch_array($resultio);
                       <p>Simple Tables</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/tables/data.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>DataTables</p>
                     </a>
                   </li>
+
                   <li class="nav-item">
                     <a href="pages/tables/jsgrid.html" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -543,7 +547,10 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+
+              <!-- Group EXAMPLES -->
               <li class="nav-header">EXAMPLES</li>
+              <!-- Group EXAMPLES #1 -->
               <li class="nav-item">
                 <a href="pages/calendar.html" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
@@ -553,18 +560,21 @@ $rowio = mysqli_fetch_array($resultio);
                   </p>
                 </a>
               </li>
+              <!-- Group EXAMPLES #2 -->
               <li class="nav-item">
                 <a href="pages/gallery.html" class="nav-link">
                   <i class="nav-icon far fa-image"></i>
                   <p>Gallery</p>
                 </a>
               </li>
+              <!-- Group EXAMPLES #3 -->
               <li class="nav-item">
                 <a href="pages/kanban.html" class="nav-link">
                   <i class="nav-icon fas fa-columns"></i>
                   <p>Kanban Board</p>
                 </a>
               </li>
+              <!-- Group EXAMPLES #4 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon far fa-envelope"></i>
@@ -594,6 +604,7 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+              <!-- Group EXAMPLES #5 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
@@ -668,6 +679,7 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+              <!-- Group EXAMPLES #6 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon far fa-plus-square"></i>
@@ -818,6 +830,7 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+              <!-- Group EXAMPLES #7 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-search"></i>
@@ -841,27 +854,36 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+
+              <!-- Group Menu #8 -->
               <li class="nav-header">MISCELLANEOUS</li>
+              <!-- SupMenu #8 -->
               <li class="nav-item">
                 <a href="iframe.html" class="nav-link">
                   <i class="nav-icon fas fa-ellipsis-h"></i>
                   <p>Tabbed IFrame Plugin</p>
                 </a>
               </li>
+              <!-- SupMenu #8 -->
               <li class="nav-item">
                 <a href="https://adminlte.io/docs/3.1/" class="nav-link">
                   <i class="nav-icon fas fa-file"></i>
                   <p>Documentation</p>
                 </a>
               </li>
+
+              <!-- Group Menu #9 -->
               <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+              <!-- SupMenu #9 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
                   <p>Level 1</p>
                 </a>
               </li>
+              <!-- SupMenu #9 -->
               <li class="nav-item">
+                <!-- Header SupMenu #9 -->
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-circle"></i>
                   <p>
@@ -869,6 +891,8 @@ $rowio = mysqli_fetch_array($resultio);
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+
+                <!-- Menu #9 -->
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -876,6 +900,8 @@ $rowio = mysqli_fetch_array($resultio);
                       <p>Level 2</p>
                     </a>
                   </li>
+
+                  <!-- -- Menu #9 -->
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -884,6 +910,8 @@ $rowio = mysqli_fetch_array($resultio);
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
+
+                    <!-- -- -- Menu #9 -->
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -891,12 +919,14 @@ $rowio = mysqli_fetch_array($resultio);
                           <p>Level 3</p>
                         </a>
                       </li>
+
                       <li class="nav-item">
                         <a href="#" class="nav-link">
                           <i class="far fa-dot-circle nav-icon"></i>
                           <p>Level 3</p>
                         </a>
                       </li>
+
                       <li class="nav-item">
                         <a href="#" class="nav-link">
                           <i class="far fa-dot-circle nav-icon"></i>
@@ -905,6 +935,8 @@ $rowio = mysqli_fetch_array($resultio);
                       </li>
                     </ul>
                   </li>
+
+                  <!-- -- Menu #9 -->
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -913,25 +945,31 @@ $rowio = mysqli_fetch_array($resultio);
                   </li>
                 </ul>
               </li>
+              <!-- SupMenu #9 -->            
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
                   <p>Level 1</p>
                 </a>
               </li>
+
+              <!-- Group Menu #10 -->
               <li class="nav-header">LABELS</li>
+              <!-- SupMenu #10 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon far fa-circle text-danger"></i>
                   <p class="text">Important</p>
                 </a>
               </li>
+              <!-- SupMenu #10 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon far fa-circle text-warning"></i>
                   <p>Warning</p>
                 </a>
               </li>
+              <!-- SupMenu #10 -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon far fa-circle text-info"></i>
@@ -944,6 +982,7 @@ $rowio = mysqli_fetch_array($resultio);
         </div>
         <!-- /.sidebar -->
       </aside>
+      <!-- /.Main Sidebar Container -->
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -951,7 +990,7 @@ $rowio = mysqli_fetch_array($resultio);
         <div class="container">
           <div class="row">
             <div class="col col-sm-12">
-              <h3  class="jumbotron" align="center">USER PROFILE</h3>
+              <h3  class="jumbotron" align="center">ADMIN PROFILE</h3>
             </div>
           </div>
         </div>
@@ -1055,16 +1094,21 @@ $rowio = mysqli_fetch_array($resultio);
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
+
+      <!-- Footer -->
       <footer class="main-footer">
-        <strong
-          >Copyright &copy; 2020-2021
-          <a href="https://app.microtronic.biz">DOMNICK WORKFLOW BETA</a>.</strong
-        >
+        <strong>
+          Copyright &copy; 2020-2021
+          <a href="https://app.microtronic.biz"> DOMNICK WORKFLOW BETA </a>
+        </strong>
+
         All rights reserved.
+
         <div class="float-right d-none d-sm-inline-block">
           <b>Version</b> 0.1.0-beta
         </div>
       </footer>
+      <!-- /.Footer -->
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
@@ -1079,9 +1123,7 @@ $rowio = mysqli_fetch_array($resultio);
     <!-- jQuery UI 1.11.4 -->
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge("uibutton", $.ui.button);
-    </script>
+    <script>$.widget.bridge("uibutton", $.ui.button);</script>
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
